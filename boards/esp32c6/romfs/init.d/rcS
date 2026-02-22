@@ -1,0 +1,63 @@
+#!/bin/nsh
+#
+# rcS — NSH startup script (runs after rc.sysinit, before prompt)
+#
+# Auto-configures Wi-Fi and starts background services
+# based on /config settings.
+#
+
+# ─── Wi-Fi Auto-Connect ───
+
+# Read saved Wi-Fi credentials from /config
+WIFI_AUTO=$(config get boot.autostart_wifi 2>/dev/null)
+
+if [ "$WIFI_AUTO" = "1" ]; then
+  SSID=$(config get wifi.ssid 2>/dev/null)
+  PSK=$(config get wifi.psk 2>/dev/null)
+
+  if [ -n "$SSID" ] && [ "$SSID" != "" ]; then
+    echo "[boot] Connecting to Wi-Fi: $SSID"
+
+    # Bring up the Wi-Fi interface
+    ifup wlan0 2>/dev/null
+
+    # Configure WPA2 and connect
+    wapi mode wlan0 managed 2>/dev/null
+    wapi essid wlan0 "$SSID" 2>/dev/null
+    wapi passphrase wlan0 "$PSK" 2>/dev/null
+
+    # Request DHCP
+    dhcpc_start wlan0 2>/dev/null
+
+    echo "[boot] Wi-Fi configured (DHCP requested)"
+  else
+    echo "[boot] Wi-Fi: no SSID configured"
+    echo "       Use: config set wifi.ssid <name>"
+    echo "            config set wifi.psk <password>"
+  fi
+else
+  echo "[boot] Wi-Fi auto-connect disabled"
+fi
+
+# ─── Home Assistant Auto-Report ───
+
+HA_AUTO=$(config get boot.autostart_ha 2>/dev/null)
+
+if [ "$HA_AUTO" = "1" ]; then
+  HA_URL=$(config get ha.url 2>/dev/null)
+  HA_TOKEN=$(config get ha.token 2>/dev/null)
+
+  if [ -n "$HA_URL" ] && [ -n "$HA_TOKEN" ]; then
+    echo "[boot] Starting HA auto-reporting → $HA_URL"
+    hactl start &
+  else
+    echo "[boot] HA: URL or token not configured"
+  fi
+fi
+
+# ─── Summary ───
+
+echo ""
+echo "mmWave OS ready. Type 'help' for commands."
+echo "Custom commands: mmwave, hactl, sysinfo, config"
+echo ""

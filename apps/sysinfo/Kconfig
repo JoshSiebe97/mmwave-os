@@ -1,0 +1,6 @@
+config SYSINFO_CMD
+	tristate "System info shell command"
+	default n
+	---help---
+		NSH command to display system information including
+		heap usage, uptime, CPU info, and sensor status.

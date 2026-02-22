@@ -1,0 +1,38 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+menuconfig MMWAVE_LD2410
+	bool "HLK-LD2410 mmWave Radar Sensor"
+	default n
+	depends on SERIAL
+	---help---
+		Enable the HLK-LD2410 24GHz mmWave radar sensor driver.
+		The sensor communicates over UART and provides presence,
+		motion, and static target detection data.
+
+if MMWAVE_LD2410
+
+config MMWAVE_LD2410_UART_PATH
+	string "UART device path"
+	default "/dev/ttyS1"
+	---help---
+		Path to the UART device connected to the LD2410 sensor.
+
+config MMWAVE_LD2410_BAUD
+	int "UART baud rate"
+	default 256000
+	---help---
+		Baud rate for LD2410 UART communication.
+		Default is 256000 as set by the LD2410 factory config.
+		Valid values: 9600, 19200, 38400, 57600, 115200,
+		230400, 256000, 460800
+
+config MMWAVE_LD2410_DEVPATH
+	string "Device node path"
+	default "/dev/mmwave0"
+	---help---
+		Path to register the mmWave character device.
+
+endif # MMWAVE_LD2410

@@ -1,0 +1,6 @@
+config CONFIG_CMD
+	tristate "Config manager shell command"
+	default n
+	---help---
+		NSH command for persistent configuration management.
+		Stores key-value pairs in LittleFS at /config/.

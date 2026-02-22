@@ -1,0 +1,12 @@
+/****************************************************************************
+ * apps/mmwave/Kconfig
+ ****************************************************************************/
+
+config MMWAVE_CMD
+	tristate "mmWave sensor shell command"
+	default n
+	depends on MMWAVE_LD2410
+	---help---
+		NSH command to read and configure the LD2410 mmWave sensor.
+		Provides real-time presence detection readout, engineering
+		mode, gate sensitivity configuration, and JSON output.

@@ -1,0 +1,30 @@
+#!/bin/nsh
+#
+# rc.sysinit — System initialization (runs before NSH prompt)
+#
+# This script runs as root during NuttX boot, before the
+# interactive shell is available.
+#
+
+echo "────────────────────────────────────"
+echo "  mmWave OS v0.1.0"
+echo "  NuttX RTOS on ESP32-C6"
+echo "────────────────────────────────────"
+echo ""
+
+# Mount /config (LittleFS) — already done in board bringup,
+# but verify it's accessible
+if [ -d /config ]; then
+  echo "[boot] /config mounted"
+else
+  echo "[boot] WARNING: /config not available"
+fi
+
+# Verify mmWave sensor
+if [ -c /dev/mmwave0 ]; then
+  echo "[boot] mmWave sensor: /dev/mmwave0 ready"
+else
+  echo "[boot] WARNING: mmWave sensor not detected"
+fi
+
+echo ""

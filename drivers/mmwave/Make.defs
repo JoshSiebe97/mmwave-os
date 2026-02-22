@@ -1,0 +1,14 @@
+############################################################################
+# drivers/mmwave/Make.defs
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.
+#
+# SPDX-License-Identifier: Apache-2.0
+############################################################################
+
+ifeq ($(CONFIG_MMWAVE_LD2410),y)
+CSRCS += mmwave_ld2410.c
+DEPPATH += --dep-path drivers/mmwave
+VPATH += :drivers/mmwave
+endif

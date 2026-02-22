@@ -1,0 +1,8 @@
+config HACTL_CMD
+	tristate "Home Assistant control command"
+	default n
+	depends on NET_TCP && MMWAVE_LD2410
+	---help---
+		NSH command to manage Home Assistant integration.
+		Pushes mmWave sensor state to HA REST API and
+		provides background auto-reporting.
