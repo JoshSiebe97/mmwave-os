@@ -1,7 +1,7 @@
 /****************************************************************************
  * boards/esp32c6/src/mmwave_bringup.c
  *
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: MIT
  *
  * Board-specific initialization for mmWave OS on ESP32-C6.
  * Called from NuttX board_late_initialize() or nsh_archinitialize().

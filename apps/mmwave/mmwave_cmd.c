@@ -1,10 +1,7 @@
 /****************************************************************************
  * apps/mmwave/mmwave_cmd.c
  *
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.
- *
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: MIT
  *
  * NSH command: mmwave
  *

@@ -1,7 +1,7 @@
 /****************************************************************************
  * apps/config/config_cmd.c
  *
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: MIT
  *
  * NSH command: config — Persistent configuration manager
  *

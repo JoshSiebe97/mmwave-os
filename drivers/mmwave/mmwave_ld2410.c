@@ -1,10 +1,7 @@
 /****************************************************************************
  * drivers/mmwave/mmwave_ld2410.c
  *
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.
- *
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: MIT
  *
  * NuttX character device driver for the HLK-LD2410 24GHz mmWave radar.
  *
@@ -372,7 +369,7 @@ static int mmwave_process_data_frame(FAR struct mmwave_dev_s *priv)
 
       /* Motion gate energies (gates 0-8) */
 
-      for (int i = 0; i < LD2410_MAX_GATES && i < (int)priv->frame_len - 15;
+      for (int i = 0; i < LD2410_MAX_GATES && i < (int)priv->frame_len - 11;
            i++)
         {
           priv->eng_data.motion_gate_energy[i] = eng[i];
@@ -381,7 +378,7 @@ static int mmwave_process_data_frame(FAR struct mmwave_dev_s *priv)
       /* Static gate energies follow motion gates */
 
       eng += LD2410_MAX_GATES;
-      for (int i = 0; i < LD2410_MAX_GATES && i < (int)priv->frame_len - 24;
+      for (int i = 0; i < LD2410_MAX_GATES && i < (int)priv->frame_len - 20;
            i++)
         {
           priv->eng_data.static_gate_energy[i] = eng[i];

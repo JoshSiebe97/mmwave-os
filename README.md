@@ -75,6 +75,33 @@ On startup, the board bring-up and scripts perform:
 This repository is an implementation foundation, not a finished product image.
 Matter/Thread integration is planned but not complete in the current code.
 
+## Testing
+
+The project includes a host-side test suite that runs on your Mac or Linux
+workstation — no ESP32 or NuttX simulator needed. Tests use the
+[Unity](https://github.com/ThrowTheSwitch/Unity) framework and compile the
+driver source directly against lightweight NuttX header stubs.
+
+```bash
+cd tests
+make test
+```
+
+This builds and runs three suites:
+
+- **test_parser** — exercises the LD2410 binary frame parser: valid frames,
+  back-to-back frames, garbage rejection, corrupted headers/tails, oversized
+  length fields, and parser state reset behavior (16 tests)
+- **test_data_extract** — verifies that parsed frames populate `mmwave_data_s`
+  correctly: all target states, field extraction, engineering mode per-gate
+  arrays, boundary values, and invalid-type rejection (21 tests)
+- **test_ha_format** — confirms the Home Assistant JSON body and HTTP request
+  formatting: state on/off, attribute values, structural validity, truncation
+  handling, and full request assembly (22 tests)
+
+Run a single suite with `make test_parser`, `make test_data_extract`, or
+`make test_ha_format`. See [tests/](tests/) for the full structure.
+
 ## License
 
 MIT
